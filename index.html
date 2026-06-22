@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tungtungtungsahelp</title>
+
+<style>
+:root{
+  --brown:#5B3924;
+  --dark:#2B1B12;
+  --ochre:#D9A441;
+  --cream:#FFF8E8;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:var(--cream);
+  color:var(--dark);
+}
+
+/* HEADER */
+header{
+  background:var(--brown);
+  color:white;
+  text-align:center;
+  padding:25px;
+}
+
+/* NAV TABS */
+nav{
+  background:var(--ochre);
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  padding:12px;
+  flex-wrap:wrap;
+}
+
+nav button{
+  background:transparent;
+  border:none;
+  font-weight:bold;
+  color:var(--dark);
+  cursor:pointer;
+  padding:10px 15px;
+  border-radius:8px;
+}
+
+nav button:hover{
+  background:rgba(0,0,0,0.1);
+}
+
+/* PAGES */
+.page{
+  display:none;
+  max-width:1000px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.page.active{
+  display:block;
+}
+
+.hero{
+  text-align:center;
+  padding:50px 20px;
+}
+
+.hero h1{
+  font-size:3rem;
+  margin-bottom:10px;
+}
+
+/* CARDS */
+.card{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  margin-bottom:20px;
+}
+
+/* CHAT BOX */
+.chat{
+  height:280px;
+  overflow-y:auto;
+  border:1px solid #ccc;
+  padding:10px;
+  border-radius:10px;
+  background:white;
+  margin-bottom:10px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+button.send{
+  margin-top:10px;
+  padding:12px 20px;
+  background:var(--brown);
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  margin-top:40px;
+  background:var(--brown);
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Tungtungtungsahelp</h1>
+  <p>Support • Guidance • AI Assistance</p>
+</header>
+
+<nav>
+  <button onclick="showPage('home')">Home</button>
+  <button onclick="showPage('about')">About Us</button>
+  <button onclick="showPage('help')">Help AI</button>
+  <button onclick="showPage('emergency')">Emergency Help</button>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="page active">
+  <div class="hero">
+    <h1>Welcome</h1>
+    <p>Your AI-powered support platform</p>
+  </div>
+
+  <div class="card">
+    <h2>What is this?</h2>
+    <p>
+      Tungtungtungsahelp is a simple support website with an AI help system
+      and emergency response assistant.
+    </p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="page">
+  <div class="card">
+    <h2>About Us</h2>
+    <p>
+      We built Tungtungtungsahelp to provide fast, simple help and AI-powered answers.
+      Our goal is to make support easy to access anytime.
+    </p>
+  </div>
+</section>
+
+<!-- HELP AI -->
+<section id="help" class="page">
+  <div class="card">
+    <h2>AI Help Assistant</h2>
+
+    <div id="helpChat" class="chat"></div>
+
+    <input id="helpInput" placeholder="Ask something...">
+    <button class="send" onclick="sendHelp()">Send</button>
+  </div>
+</section>
+
+<!-- EMERGENCY -->
+<section id="emergency" class="page">
+  <div class="card">
+    <h2>Emergency Help</h2>
+
+    <div id="emergencyChat" class="chat"></div>
+
+    <input id="emergencyInput" placeholder="Type message...">
+    <button class="send" onclick="sendEmergency()">Send</button>
+  </div>
+</section>
+
+<footer>
+  © 2026 tungtungtungsahelp.com
+</footer>
+
+<script>
+
+/* PAGE SWITCH */
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>{
+    p.classList.remove('active');
+  });
+  document.getElementById(page).classList.add('active');
+}
+
+/* AI HELP (DEMO - NO BACKEND YET) */
+function sendHelp(){
+
+  const input = document.getElementById("helpInput");
+  const chat = document.getElementById("helpChat");
+
+  if(!input.value.trim()) return;
+
+  const msg = input.value;
+
+  chat.innerHTML += `<p><b>You:</b> ${msg}</p>`;
+
+  input.value = "";
+
+  setTimeout(()=>{
+    chat.innerHTML += `
+    <p><b>AI:</b> This is a demo assistant.  
+    To enable real AI, connect an API (OpenAI / Groq / OpenRouter).</p>
+    `;
+    chat.scrollTop = chat.scrollHeight;
+  },500);
+}
+
+/* EMERGENCY CHAT (FIXED RESPONSE) */
+function sendEmergency(){
+
+  const input = document.getElementById("emergencyInput");
+  const chat = document.getElementById("emergencyChat");
+
+  if(!input.value.trim()) return;
+
+  chat.innerHTML += `<p><b>You:</b> ${input.value}</p>`;
+
+  chat.innerHTML += `
+  <p><b>Assistant:</b><br><br>
+  I am not qualified to answer this.<br><br>
+  Please upgrade to our Tungtungtungsahelp Plus plan to access a qualified AI assistant.
+  </p>
+  `;
+
+  input.value = "";
+  chat.scrollTop = chat.scrollHeight;
+}
+
+</script>
+
+</body>
+</html>
